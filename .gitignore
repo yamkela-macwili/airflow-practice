@@ -216,3 +216,24 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Airflow generated files
+airflow.db
+airflow.db-shm
+airflow.db-wal
+airflow.cfg
+
+# Airflow logs
+logs/
+
+# Airflow local auth generated files
+simple_auth_manager_passwords.json.generated
+
+# Data files 
+data/*.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
