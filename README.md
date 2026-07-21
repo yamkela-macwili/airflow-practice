@@ -40,8 +40,6 @@ The project demonstrates:
 * Data quality testing
 * Environment configuration
 
-> **Requires Apache Airflow 3.x.** This project uses `airflow.providers.standard.operators.*` imports and the Simple Auth Manager, both introduced in Airflow 3.0. It will not run as-is on Airflow 2.x.
-
 ---
 
 # Project Highlights
