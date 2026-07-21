@@ -74,12 +74,8 @@ F --> G[Notify Success<br/>Airflow]
 
 | DAG Graph View | customers.csv | PostgreSQL `SELECT` |
 | --- | --- | --- |
-| ![DAG graph view of customers_postgres_pipeline in the Airflow UI](./screenshots/dag_graph.png) | ![Generated customers.csv with sample records](./screenshots/customers_csv.png) | ![psql SELECT * FROM customers output](./screenshots/psql_select.png) |
-| Task dependency graph for `customers_postgres_pipeline`, viewed in the Airflow UI (Graph tab). | Sample output of `data/customers.csv` after a `generate_data` → `transform_data` run — city values uppercased, columns lowercased. | Output of `SELECT * FROM customers LIMIT 10;` in `psql`, confirming the CSV rows landed in PostgreSQL. |
-
-Save the three images to a `screenshots/` folder at the project root using the filenames above (`dag_graph.png`, `customers_csv.png`, `psql_select.png`), and they'll render inline both here and on GitHub.
-
-> **Heads up when comparing the CSV and `psql` screenshots side by side:** the `customers` table now has a `user_id BIGSERIAL PRIMARY KEY` column that isn't in `customers.csv`. `pandas.to_sql` only inserts the columns present in the DataFrame, so `user_id` auto-increments on load — expect the `psql` output to show one more column than the CSV, with row *values* otherwise matching.
+| ![DAG graph view of customers_pipeline in the Airflow UI](./screenshots/dag_graph.png) | ![Generated customers.csv with sample records](./screenshots/customers_csv.png) | ![psql SELECT * FROM customers output](./screenshots/psql_select.png) |
+| Task dependency graph for `customers_postgres_pipeline`, viewed in the Airflow UI (Graph tab). | Sample output of `data/customers.csv` after a `generate_data` → `transform_data` run — city values uppercased, columns lowercased. | Output of `SELECT * FROM customers;` in `psql`, confirming the CSV rows landed in PostgreSQL. |
 
 ---
 
@@ -139,8 +135,6 @@ The objective is to ensure that only clean, validated customer records are store
 | SQLAlchemy + psycopg2 | Database loading      |
 | Faker          | Synthetic data generation   |
 | python-dotenv  | Environment management      |
-
-> `apache-airflow-providers-postgres` is included in `requirements.txt` but the pipeline currently talks to PostgreSQL directly via SQLAlchemy/psycopg2 rather than the provider's `PostgresOperator`/`PostgresHook`. Keep it if you plan to add Airflow-native Postgres connections later, or drop it to trim the install.
 
 ---
 
@@ -560,7 +554,7 @@ Describe table:
 View records:
 
 ```sql
-SELECT * FROM customers LIMIT 10;
+SELECT * FROM customers;
 ```
 
 **Sample output:**
